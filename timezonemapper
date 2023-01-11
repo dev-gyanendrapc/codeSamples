@@ -1,0 +1,18 @@
+  const timeZoneMapper = (day, time, tzone) => {
+    let nTime = time.split(":");
+    let nDate = moment();
+    nDate.weekday(day);
+    nDate.hours(nTime[0]);
+    nDate.minutes(nTime[1]);
+    let mDate = moment(nDate).tz(tzone);
+    let d = mDate.isoWeekday();
+    let h = mDate.hours();
+    let m = mDate.minutes();
+    setCurrentSettings({
+      ...currentSettings,
+      scheduledDay: d,
+      scheduledTime: (((h.toString().length) < 2) ? `0${h}` : h) + ":" + (((m.toString().length) < 2) ? `0${m}` : m),
+      timeZone: tzone
+    });
+    setCTime((((h.toString().length) < 2) ? `0${h}` : h) + ":" + (((m.toString().length) < 2) ? `0${m}` : m));
+  }
